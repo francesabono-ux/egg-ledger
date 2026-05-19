@@ -927,7 +927,9 @@ function registerServiceWorker() {
 }
 
 document.querySelectorAll(".tab-button").forEach((button) => {
-  button.addEventListener("click", () => showView(button.dataset.view));
+  button.addEventListener("click", () => {
+    if (button.dataset.view) showView(button.dataset.view);
+  });
 });
 document.querySelectorAll("[data-period-preset]").forEach((button) => {
   button.addEventListener("click", () => applyPeriodPreset(button.dataset.periodPreset));

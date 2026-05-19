@@ -10,7 +10,7 @@
     <link rel="manifest" href="./manifest.webmanifest">
     <link rel="icon" href="./assets/egg-ledger-icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="./assets/egg-ledger-icon.svg">
-    <link rel="stylesheet" href="./styles.css?v=5">
+    <link rel="stylesheet" href="./styles.css?v=6">
   </head>
   <body>
     <main class="app-shell">
@@ -406,6 +406,19 @@
       </section>
     </main>
 
-    <script src="./src/app.js?v=5" defer></script>
+    <script>
+      document.addEventListener("click", function (event) {
+        const button = event.target.closest("[data-view]");
+        if (!button) return;
+
+        document.querySelectorAll(".view").forEach(function (view) {
+          view.classList.toggle("is-active", view.id === button.dataset.view);
+        });
+        document.querySelectorAll(".tab-button").forEach(function (tab) {
+          tab.classList.toggle("is-active", tab === button);
+        });
+      });
+    </script>
+    <script src="./src/app.js?v=6" defer></script>
   </body>
 </html>
