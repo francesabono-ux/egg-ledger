@@ -1,0 +1,16 @@
+node_modules
+**/node_modules
+.git
+.github
+.wrangler
+.dev.vars
+.assetsignore
+wrangler.jsonc
+package.json
+package-lock.json
+bun.lock
+bun.lockb
+SETUP.md
+google-apps-script.gs
+*.png
+assets/alumni-*.png
