@@ -1,0 +1,18 @@
+{
+  "name": "Egg Ledger",
+  "short_name": "Egg Ledger",
+  "description": "Mobile tracker for layer egg harvest, sales, feed inventory, expenses, and income.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f9f4",
+  "theme_color": "#1f4d3a",
+  "icons": [
+    {
+      "src": "./assets/egg-ledger-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

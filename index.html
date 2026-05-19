@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#1f4d3a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Egg Ledger">
+    <title>Egg Ledger</title>
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="icon" href="./assets/egg-ledger-icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="./assets/egg-ledger-icon.svg">
+    <link rel="stylesheet" href="./styles.css?v=4">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">Layer Farm Tracker</p>
+          <h1>Egg Ledger</h1>
+          <p class="header-copy">Log harvest, egg sales, feed use, feed purchases, and farm expenses from the phones your team already carries.</p>
+        </div>
+        <div class="farm-mark" aria-hidden="true">
+          <img src="./assets/egg-ledger-icon.svg" alt="">
+        </div>
+      </header>
+
+      <section class="summary-grid" aria-label="Business summary">
+        <article class="metric-card accent">
+          <span>Net Income</span>
+          <strong id="net-income">PHP 0.00</strong>
+          <small id="net-income-label">Selected period</small>
+        </article>
+        <article class="metric-card">
+          <span>Revenue</span>
+          <strong id="total-revenue">PHP 0.00</strong>
+          <small id="total-sold">0 eggs sold</small>
+        </article>
+        <article class="metric-card">
+          <span>Expenses</span>
+          <strong id="total-expenses">PHP 0.00</strong>
+          <small id="feed-purchased">0 kg feed bought</small>
+        </article>
+        <article class="metric-card">
+          <span>Feed Balance</span>
+          <strong id="feed-balance">0 kg</strong>
+          <small id="feed-used">0 kg feed used</small>
+        </article>
+      </section>
+
+      <nav class="tab-bar" aria-label="App sections">
+        <button class="tab-button is-active" type="button" data-view="logger-view">Logger</button>
+        <button class="tab-button" type="button" data-view="financials-view">Financials</button>
+      </nav>
+
+      <section class="view is-active" id="logger-view" aria-labelledby="logger-title">
+        <div class="panel-stack">
+          <section class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Production</p>
+                <h2 id="logger-title">Harvest Logger</h2>
+              </div>
+              <label class="date-field" for="production-date">
+                <span>Date</span>
+                <input id="production-date" type="date" required>
+              </label>
+            </div>
+
+            <form class="logger-form" id="production-form">
+              <label class="full-field" for="flock-name">
+                <span>House or flock name</span>
+                <input id="flock-name" type="text" placeholder="Layer House 1">
+              </label>
+
+              <fieldset>
+                <legend>Harvested eggs</legend>
+                <div class="size-grid" id="harvest-inputs"></div>
+              </fieldset>
+
+              <label for="feed-used-kg">
+                <span>Feeds eaten by chickens, kg</span>
+                <input id="feed-used-kg" type="text" inputmode="decimal" placeholder="0">
+              </label>
+
+              <label class="full-field" for="production-notes">
+                <span>Notes</span>
+                <textarea id="production-notes" rows="2" placeholder="Low production, flock condition, mortality, weather"></textarea>
+              </label>
+
+              <div class="button-row">
+                <button class="primary-button" type="submit" id="save-production">Save Harvest</button>
+                <button class="ghost-button" type="button" id="clear-production">Clear</button>
+              </div>
+              <p class="status-line" id="production-status" role="status" aria-live="polite"></p>
+            </form>
+          </section>
+
+          <section class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Revenue</p>
+                <h2>Revenue Logger</h2>
+              </div>
+              <label class="date-field" for="sales-date">
+                <span>Date</span>
+                <input id="sales-date" type="date" required>
+              </label>
+            </div>
+
+            <form class="logger-form" id="sales-form">
+              <fieldset>
+                <legend>Sold eggs</legend>
+                <p class="field-hint">Enter eggs sold by size. Revenue uses the prices in Financials.</p>
+                <div class="size-grid" id="sold-inputs"></div>
+              </fieldset>
+
+              <label class="full-field" for="sales-notes">
+                <span>Buyer or notes</span>
+                <textarea id="sales-notes" rows="2" placeholder="Buyer name, delivery, payment status"></textarea>
+              </label>
+
+              <div class="entry-preview" aria-live="polite">
+                <div>
+                  <span>Expected revenue</span>
+                  <strong id="preview-revenue">PHP 0.00</strong>
+                </div>
+                <div>
+                  <span>Eggs sold</span>
+                  <strong id="preview-sold">0</strong>
+                </div>
+              </div>
+
+              <div class="button-row">
+                <button class="primary-button" type="submit" id="save-sales">Save Sales</button>
+                <button class="ghost-button" type="button" id="clear-sales">Clear</button>
+              </div>
+              <p class="status-line" id="sales-status" role="status" aria-live="polite"></p>
+            </form>
+          </section>
+
+          <section class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Spend</p>
+                <h2>Spend Logger</h2>
+              </div>
+              <label class="date-field" for="expense-date">
+                <span>Date</span>
+                <input id="expense-date" type="date" required>
+              </label>
+            </div>
+
+            <form class="logger-form" id="expense-form">
+              <div class="expense-grid">
+                <label for="expense-category">
+                  <span>Category</span>
+                  <select id="expense-category">
+                    <option value="feed">Feed purchase</option>
+                    <option value="salary">Salary</option>
+                    <option value="medicine">Medicine</option>
+                    <option value="utilities">Utilities</option>
+                    <option value="maintenance">Maintenance</option>
+                    <option value="other">Other</option>
+                  </select>
+                </label>
+                <label for="expense-frequency">
+                  <span>Expense type</span>
+                  <select id="expense-frequency">
+                    <option value="one-time">One time</option>
+                    <option value="daily">Daily</option>
+                    <option value="monthly">Monthly</option>
+                  </select>
+                </label>
+                <label for="expense-amount">
+                  <span>Amount paid</span>
+                  <input id="expense-amount" type="text" inputmode="decimal" placeholder="0.00">
+                </label>
+                <label for="feed-sacks">
+                  <span>Feed sacks bought</span>
+                  <input id="feed-sacks" type="text" inputmode="decimal" placeholder="0">
+                </label>
+                <label for="kg-per-sack">
+                  <span>Kg per sack</span>
+                  <input id="kg-per-sack" type="text" inputmode="decimal" placeholder="50">
+                </label>
+                <label for="expense-description">
+                  <span>Description</span>
+                  <input id="expense-description" type="text" placeholder="Supplier, payroll period, receipt number">
+                </label>
+              </div>
+
+              <div class="entry-preview" aria-live="polite">
+                <div>
+                  <span>Feed bought</span>
+                  <strong id="preview-feed-bought">0 kg</strong>
+                </div>
+                <div>
+                  <span>Expense amount</span>
+                  <strong id="preview-expense">PHP 0.00</strong>
+                </div>
+              </div>
+
+              <div class="button-row">
+                <button class="primary-button" type="submit" id="save-expense">Save Expense</button>
+                <button class="ghost-button" type="button" id="clear-expense">Clear</button>
+              </div>
+              <p class="status-line" id="expense-status" role="status" aria-live="polite"></p>
+            </form>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="financials-view" aria-labelledby="financials-title">
+        <div class="panel report-panel">
+          <div class="panel-header report-header">
+            <div>
+              <p class="eyebrow">Review</p>
+              <h2 id="financials-title">Financials</h2>
+            </div>
+            <div class="range-controls" aria-label="Report date range">
+              <label for="period-start">
+                <span>Start</span>
+                <input id="period-start" type="date">
+              </label>
+              <label for="period-end">
+                <span>End</span>
+                <input id="period-end" type="date">
+              </label>
+            </div>
+          </div>
+
+          <div class="preset-row" aria-label="Report presets">
+            <button class="ghost-button" type="button" data-period-preset="this-month">This Month</button>
+            <button class="ghost-button" type="button" data-period-preset="last-30">Last 30 Days</button>
+            <button class="ghost-button" type="button" data-period-preset="year-to-date">Year To Date</button>
+            <button class="ghost-button" type="button" data-period-preset="all">All Records</button>
+          </div>
+
+          <section aria-labelledby="price-title">
+            <div class="section-header">
+              <h3 id="price-title">Price Per Tray</h3>
+              <label for="tray-size">
+                <span>Eggs per tray</span>
+                <input id="tray-size" type="text" inputmode="numeric">
+              </label>
+            </div>
+            <form id="price-form">
+              <div class="price-grid" id="price-inputs"></div>
+              <div class="button-row">
+                <button class="primary-button" type="submit">Save Prices</button>
+                <button class="ghost-button" type="button" id="reset-prices">Reset Defaults</button>
+              </div>
+              <p class="status-line" id="price-status" role="status" aria-live="polite"></p>
+            </form>
+          </section>
+
+          <div class="report-summary" aria-label="Financial report summary">
+            <article class="report-card accent">
+              <span>Net Income</span>
+              <strong id="period-net">PHP 0.00</strong>
+              <small id="period-count">0 logs</small>
+            </article>
+            <article class="report-card">
+              <span>Revenue</span>
+              <strong id="period-revenue">PHP 0.00</strong>
+              <small id="period-sold">0 eggs sold</small>
+            </article>
+            <article class="report-card">
+              <span>Expenses</span>
+              <strong id="period-expenses">PHP 0.00</strong>
+              <small id="period-cost-per-egg">Cost per egg: PHP 0.00</small>
+            </article>
+            <article class="report-card">
+              <span>Harvest</span>
+              <strong id="period-harvest">0 eggs</strong>
+              <small id="period-average">Daily average: 0 eggs</small>
+            </article>
+          </div>
+
+          <section aria-labelledby="feed-inventory-title">
+            <h3 id="feed-inventory-title">Feed Inventory Tracker</h3>
+            <div class="feed-grid">
+              <article class="feed-card">
+                <span>Total kilos bought</span>
+                <strong id="feed-total-bought">0 kg</strong>
+              </article>
+              <article class="feed-card">
+                <span>Total feeds eaten</span>
+                <strong id="feed-total-used">0 kg</strong>
+              </article>
+              <article class="feed-card">
+                <span>Feed balance for period</span>
+                <strong id="feed-period-balance">0 kg</strong>
+              </article>
+              <article class="feed-card">
+                <span>Feed purchases</span>
+                <strong id="feed-purchase-count">0 logs</strong>
+              </article>
+            </div>
+          </section>
+
+          <div class="statement-grid">
+            <section aria-labelledby="income-statement-title">
+              <h3 id="income-statement-title">Income Statement</h3>
+              <dl class="statement-list">
+                <div>
+                  <dt>Egg sales revenue</dt>
+                  <dd id="statement-revenue">PHP 0.00</dd>
+                </div>
+                <div>
+                  <dt>Feed purchases</dt>
+                  <dd id="statement-feed">PHP 0.00</dd>
+                </div>
+                <div>
+                  <dt>Salaries</dt>
+                  <dd id="statement-salary">PHP 0.00</dd>
+                </div>
+                <div>
+                  <dt>Medicine</dt>
+                  <dd id="statement-medicine">PHP 0.00</dd>
+                </div>
+                <div>
+                  <dt>Utilities</dt>
+                  <dd id="statement-utilities">PHP 0.00</dd>
+                </div>
+                <div>
+                  <dt>Maintenance</dt>
+                  <dd id="statement-maintenance">PHP 0.00</dd>
+                </div>
+                <div>
+                  <dt>Other costs</dt>
+                  <dd id="statement-other">PHP 0.00</dd>
+                </div>
+                <div class="statement-total">
+                  <dt>Net income</dt>
+                  <dd id="statement-net">PHP 0.00</dd>
+                </div>
+              </dl>
+            </section>
+
+            <section aria-labelledby="size-breakdown-title">
+              <h3 id="size-breakdown-title">Egg Size Breakdown</h3>
+              <div class="breakdown-list" id="size-breakdown"></div>
+            </section>
+          </div>
+
+          <section aria-labelledby="period-activity-title">
+            <h3 id="period-activity-title">Period Activity</h3>
+            <div class="utility-row">
+              <button class="ghost-button" type="button" id="export-csv">Export CSV</button>
+              <button class="ghost-button" type="button" id="export-json">Backup JSON</button>
+              <label class="file-button" for="import-json">Import JSON</label>
+              <input class="sr-only" id="import-json" type="file" accept="application/json">
+            </div>
+            <div class="period-table" id="period-table"></div>
+            <p class="empty-state" id="period-empty">No saved logs in this period.</p>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="./src/app.js?v=4" defer></script>
+  </body>
+</html>

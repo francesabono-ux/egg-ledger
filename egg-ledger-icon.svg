@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Egg Ledger app icon</title>
+  <rect width="512" height="512" rx="96" fill="#1f4d3a"/>
+  <path fill="#f3dba4" d="M256 77c-64 0-128 99-128 204 0 83 53 154 128 154s128-71 128-154C384 176 320 77 256 77Z"/>
+  <path fill="#fff8e8" d="M214 118c-39 38-70 102-70 163 0 68 41 128 100 140-49-41-63-123-35-209 13-39 30-70 47-95-13-4-27-4-42 1Z" opacity=".78"/>
+  <path fill="#163829" d="M168 335h176v36H168zM192 383h128v34H192z"/>
+  <path fill="#d99a2b" d="M178 306h156v22H178z"/>
+  <circle cx="319" cy="171" r="18" fill="#ffffff" opacity=".54"/>
+</svg>
