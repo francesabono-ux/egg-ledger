@@ -10,7 +10,7 @@
     <link rel="manifest" href="./manifest.webmanifest">
     <link rel="icon" href="./assets/egg-ledger-icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="./assets/egg-ledger-icon.svg">
-    <link rel="stylesheet" href="./styles.css?v=4">
+    <link rel="stylesheet" href="./styles.css?v=5">
   </head>
   <body>
     <main class="app-shell">
@@ -75,7 +75,32 @@
 
               <fieldset>
                 <legend>Harvested eggs</legend>
-                <div class="size-grid" id="harvest-inputs"></div>
+                <div class="size-grid" id="harvest-inputs">
+                  <label class="size-card" for="harvest-small">
+                    <span>Small<b class="size-code">S</b></span>
+                    <input id="harvest-small" name="harvest-small" type="text" inputmode="numeric" placeholder="0">
+                  </label>
+                  <label class="size-card" for="harvest-medium">
+                    <span>Medium<b class="size-code">M</b></span>
+                    <input id="harvest-medium" name="harvest-medium" type="text" inputmode="numeric" placeholder="0">
+                  </label>
+                  <label class="size-card" for="harvest-large">
+                    <span>Large<b class="size-code">L</b></span>
+                    <input id="harvest-large" name="harvest-large" type="text" inputmode="numeric" placeholder="0">
+                  </label>
+                  <label class="size-card" for="harvest-xl">
+                    <span>XL<b class="size-code">XL</b></span>
+                    <input id="harvest-xl" name="harvest-xl" type="text" inputmode="numeric" placeholder="0">
+                  </label>
+                  <label class="size-card" for="harvest-jumbo">
+                    <span>Jumbo<b class="size-code">J</b></span>
+                    <input id="harvest-jumbo" name="harvest-jumbo" type="text" inputmode="numeric" placeholder="0">
+                  </label>
+                  <label class="size-card" for="harvest-rejects">
+                    <span>Cracked / rejects<b class="size-code">R</b></span>
+                    <input id="harvest-rejects" name="harvest-rejects" type="text" inputmode="numeric" placeholder="0">
+                  </label>
+                </div>
               </fieldset>
 
               <label for="feed-used-kg">
@@ -112,7 +137,28 @@
               <fieldset>
                 <legend>Sold eggs</legend>
                 <p class="field-hint">Enter eggs sold by size. Revenue uses the prices in Financials.</p>
-                <div class="size-grid" id="sold-inputs"></div>
+                <div class="size-grid" id="sold-inputs">
+                  <label class="size-card" for="sold-small">
+                    <span>Small<b class="size-code">S</b></span>
+                    <input id="sold-small" name="sold-small" type="text" inputmode="numeric" placeholder="0">
+                  </label>
+                  <label class="size-card" for="sold-medium">
+                    <span>Medium<b class="size-code">M</b></span>
+                    <input id="sold-medium" name="sold-medium" type="text" inputmode="numeric" placeholder="0">
+                  </label>
+                  <label class="size-card" for="sold-large">
+                    <span>Large<b class="size-code">L</b></span>
+                    <input id="sold-large" name="sold-large" type="text" inputmode="numeric" placeholder="0">
+                  </label>
+                  <label class="size-card" for="sold-xl">
+                    <span>XL<b class="size-code">XL</b></span>
+                    <input id="sold-xl" name="sold-xl" type="text" inputmode="numeric" placeholder="0">
+                  </label>
+                  <label class="size-card" for="sold-jumbo">
+                    <span>Jumbo<b class="size-code">J</b></span>
+                    <input id="sold-jumbo" name="sold-jumbo" type="text" inputmode="numeric" placeholder="0">
+                  </label>
+                </div>
               </fieldset>
 
               <label class="full-field" for="sales-notes">
@@ -360,6 +406,6 @@
       </section>
     </main>
 
-    <script src="./src/app.js?v=4" defer></script>
+    <script src="./src/app.js?v=5" defer></script>
   </body>
 </html>

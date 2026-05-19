@@ -1,4 +1,4 @@
-const CACHE_NAME = "egg-ledger-v4";
+const CACHE_NAME = "egg-ledger-v5";
 const APP_FILES = [
   "./",
   "./index.html",

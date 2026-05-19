@@ -376,24 +376,20 @@ function makeNumberInput({ id, value = "", step = "1" }) {
 }
 
 function buildSizeInputs() {
-  const harvestCards = EGG_SIZES.map((size) => {
-    const card = document.createElement("label");
-    card.className = "size-card";
-    card.innerHTML = `<span>${size.label}<b class="size-code">${size.code}</b></span>`;
-    card.append(makeNumberInput({ id: inputName("harvest", size.key) }));
-    return card;
+  EGG_SIZES.forEach((size) => {
+    const harvestInput = document.querySelector(`#${inputName("harvest", size.key)}`);
+    if (harvestInput) {
+      harvestInput.inputMode = "numeric";
+      harvestInput.placeholder = "0";
+    }
   });
-
-  const soldCards = SALE_SIZES.map((size) => {
-    const card = document.createElement("label");
-    card.className = "size-card";
-    card.innerHTML = `<span>${size.label}<b class="size-code">${size.code}</b></span>`;
-    card.append(makeNumberInput({ id: inputName("sold", size.key) }));
-    return card;
+  SALE_SIZES.forEach((size) => {
+    const soldInput = document.querySelector(`#${inputName("sold", size.key)}`);
+    if (soldInput) {
+      soldInput.inputMode = "numeric";
+      soldInput.placeholder = "0";
+    }
   });
-
-  elements.harvestInputs.replaceChildren(...harvestCards);
-  elements.soldInputs.replaceChildren(...soldCards);
 }
 
 function buildPriceInputs() {
